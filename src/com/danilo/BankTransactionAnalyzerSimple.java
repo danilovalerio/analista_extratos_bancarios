@@ -13,7 +13,8 @@ import java.util.List;
 Consultas desejadas pelo cliente
 Ele gostaria de ter respostas para as seguintes consultas: 
  - Qual o total de lucros e perdas em uma lista de extratos bancários?
- - É positivo ou negativo? Quantas transações bancárias existem em um mês específico?
+ - É positivo ou negativo?
+ - Quantas transações bancárias existem em um mês específico?
  - Quais são suas 10 principais despesas?
  - Em qual categoria ele mais gasta dinheiro?
 * */
