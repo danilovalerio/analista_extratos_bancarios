@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -20,36 +21,36 @@ Ele gostaria de ter respostas para as seguintes consultas:
 * */
 
 public class BankTransactionAnalyzerSimple {
-    private static final String RESOURCES = "src/resources/";
 
     public static void main(final String...args) throws IOException {
+        final BankStatementCSVParser bankStatementCSVParser = new BankStatementCSVParser();
+        final String fileName = "dados.csv";
+        final String RESOURCES = "src/resources/";
         final Path path = Paths.get(RESOURCES + "dados.csv");
         final List<String> lines = Files.readAllLines(path);
+        final List<BankTransaction> bankTransactions = bankStatementCSVParser.parseLineFromCSV(lines);
+
+        System.out.println("O total para todas transações: "+ String.format("%.2f", calculateTotalAmount(bankTransactions)));
+        System.out.println("Transações no mês de Janeiro: " + selectInMouth(bankTransactions, Month.JANUARY));
+    }
+
+    public static double calculateTotalAmount(final List<BankTransaction> bankTransactions) {
         double total = 0d;
-
-        /*
-         * Calculo do total das transações
-         * */
-        for (final  String line: lines) {
-            final String[] columns = line.split(",");
-            final double amount = Double.parseDouble(columns[1]);
-            total += amount;
+        for (final BankTransaction bankTransaction: bankTransactions) {
+            total += bankTransaction.getAmount();
         }
-        System.out.println("O total para todas transações: "+ String.format("%.2f", total));
+        return total;
+    }
 
-        /*
-         * Valor total de transações por mês específico
-         */
-        double totalPorMes = 0d;
-        final DateTimeFormatter DATE_PATTERN = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        for (final String line: lines) {
-            final String[] columns = line.split(",");
-            final LocalDate date = LocalDate.parse(columns[0], DATE_PATTERN);
-            if (date.getMonth() == Month.JANUARY){
-                final double amount = Double.parseDouble(columns[1]);
-                totalPorMes += amount;
+    public static List<BankTransaction> selectInMouth(final List<BankTransaction> bankTransactions, final Month month) {
+        double total = 0d;
+        final List<BankTransaction> bankTransactionsInMonth = new ArrayList<>();
+        for (final BankTransaction bankTransaction: bankTransactions) {
+            if (bankTransaction.getDate().getMonth() == month) {
+                bankTransactionsInMonth.add(bankTransaction);
             }
         }
-        System.out.println("O total para mês de Janeiro: " + String.format("%.2f", totalPorMes));
+        return bankTransactionsInMonth;
     }
+
 }
