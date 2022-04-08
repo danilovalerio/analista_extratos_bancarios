@@ -1,0 +1,13 @@
+ONDE ESTAMOS:
+Um programa que calcula total de transações e calcula o total por mês
+
+MELHORIAS:
+A classe está com muita responsabilidade, veja algumas das responsabilidades atuais
+- leitura da entrada
+- analisar entrada em determinado formato
+- processar o resultado
+- relatar um resumo do resultado
+
+
+
+
