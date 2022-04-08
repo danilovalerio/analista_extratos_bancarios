@@ -2,12 +2,11 @@ ONDE ESTAMOS:
 Um programa que calcula total de transações e calcula o total por mês
 
 MELHORIAS:
-A classe está com muita responsabilidade, veja algumas das responsabilidades atuais
-- leitura da entrada
-- analisar entrada em determinado formato
-- processar o resultado
-- relatar um resumo do resultado
-
+A classe BanTransactionAnalyzerSimple traz com ela as operacoes de cálculos quando deveria somente conectar as partes
+importantes do programa.
+Esse é um exemplo de uma coesão ruim.
+O ponto a melhorar aqui seria extrair as operações de cálculo para outra classe por ex.:
+BankStatementProcessor
 
 
 

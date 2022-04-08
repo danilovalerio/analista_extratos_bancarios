@@ -29,28 +29,15 @@ public class BankTransactionAnalyzerSimple {
         final Path path = Paths.get(RESOURCES + "dados.csv");
         final List<String> lines = Files.readAllLines(path);
         final List<BankTransaction> bankTransactions = bankStatementCSVParser.parseLineFromCSV(lines);
-
-        System.out.println("O total para todas transações: "+ String.format("%.2f", calculateTotalAmount(bankTransactions)));
-        System.out.println("Transações no mês de Janeiro: " + selectInMouth(bankTransactions, Month.JANUARY));
+        final BankStatementProcessor bankStatementProcessor = new BankStatementProcessor(bankTransactions);
+        collectSummary(bankStatementProcessor);
     }
 
-    public static double calculateTotalAmount(final List<BankTransaction> bankTransactions) {
-        double total = 0d;
-        for (final BankTransaction bankTransaction: bankTransactions) {
-            total += bankTransaction.getAmount();
-        }
-        return total;
-    }
+    private static void collectSummary(final BankStatementProcessor bankStatementProcessor) {
 
-    public static List<BankTransaction> selectInMouth(final List<BankTransaction> bankTransactions, final Month month) {
-        double total = 0d;
-        final List<BankTransaction> bankTransactionsInMonth = new ArrayList<>();
-        for (final BankTransaction bankTransaction: bankTransactions) {
-            if (bankTransaction.getDate().getMonth() == month) {
-                bankTransactionsInMonth.add(bankTransaction);
-            }
-        }
-        return bankTransactionsInMonth;
+        System.out.println("O total para todas transações: "+ String.format("%.2f", bankStatementProcessor.calculateTotalAmount()));
+        System.out.println("Transações no mês de Janeiro: " + bankStatementProcessor.calculateTotalInMonth(Month.JANUARY));
+        System.out.println("Transações no mês de Fevereiro: " + bankStatementProcessor.calculateTotalInMonth(Month.FEBRUARY));
+        System.out.println("Total de salário foi: " + bankStatementProcessor.calculateTotalForCategory("Salary"));
     }
-
 }
