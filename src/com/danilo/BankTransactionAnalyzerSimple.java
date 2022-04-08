@@ -22,13 +22,15 @@ Ele gostaria de ter respostas para as seguintes consultas:
 
 public class BankTransactionAnalyzerSimple {
 
+    //public void analyze(final String fileName, Final BankStatementParser bankStatementParser);
+
     public static void main(final String...args) throws IOException {
         final BankStatementCSVParser bankStatementCSVParser = new BankStatementCSVParser();
         final String fileName = "dados.csv";
         final String RESOURCES = "src/resources/";
         final Path path = Paths.get(RESOURCES + "dados.csv");
         final List<String> lines = Files.readAllLines(path);
-        final List<BankTransaction> bankTransactions = bankStatementCSVParser.parseLineFromCSV(lines);
+        final List<BankTransaction> bankTransactions = bankStatementCSVParser.parseLinesFrom(lines);
         final BankStatementProcessor bankStatementProcessor = new BankStatementProcessor(bankTransactions);
         collectSummary(bankStatementProcessor);
     }

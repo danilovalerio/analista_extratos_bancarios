@@ -2,11 +2,9 @@ ONDE ESTAMOS:
 Um programa que calcula total de transações e calcula o total por mês
 
 MELHORIAS:
-A classe BanTransactionAnalyzerSimple traz com ela as operacoes de cálculos quando deveria somente conectar as partes
-importantes do programa.
-Esse é um exemplo de uma coesão ruim.
-O ponto a melhorar aqui seria extrair as operações de cálculo para outra classe por ex.:
-BankStatementProcessor
+Para entender o que é o acoplamento, pense em um relógio. Não é necessário saber como um relógio funciona para ler as horas, então você não depende dos componentes do relógio. Isso significa que poderia alterar esses componentes sem afetar a leitura da hora. Essas duas preocupações (interface e implementação) são desacopladas uma da outra.
+Por exemplo, até aqui a classe BankStatementAnalyzer depende da classe BankStatementCSVParser. E se você precisar alterar o parser de modo a suportar declarações codificadas como entradas JSON? E as entradas XML? Seria uma refatoração desagradável! Mas não se preocupe, você pode dissociar componentes diferentes utilizando uma interface, que é a ferramenta escolhida para prover flexibilidade para os requisitos que mudam.
+
 
 
 
